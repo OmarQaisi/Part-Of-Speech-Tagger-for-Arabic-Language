@@ -5,9 +5,9 @@ class Tokenizer:
 
     def tokenize(self):
         content = self.txt.read()
+        for i in range(0,len(content)):
+            if content[i] in ["،",".","!",":",'""',"-","?","''",';']:
+                content=content[0:i]+" "+content[i+1:]
         result = content.split(" ")
-        for i in range(0,len(result)):
-            for j in range(0,len(result[i])):
-                if result[i][j] in ["،",".","!",":",'""',"-","?","''"]:
-                    result[i]=result[i][0:j]+result[i][j+1:]
         return result
+
