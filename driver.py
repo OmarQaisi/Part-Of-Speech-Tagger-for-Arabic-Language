@@ -1,6 +1,6 @@
 from tokenizer import Tokenizer
 
-test = "Corpus//Sports/رياضة تحت الماء.txt"
+test = "Corpus\\Technology\\تقنية بلوك تشين2.txt"
 token = Tokenizer(test)
 result = token.tokenize()
 for word in result:
