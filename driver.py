@@ -1,7 +1,9 @@
 from tokenizer import Tokenizer
 from tagger import Tagger
 
+
 test = "Corpus\\Sports\\الرياضة و الصحة النفسية.txt"
+
 token = Tokenizer(test)
 result = token.tokenize()
 tagger = Tagger()
