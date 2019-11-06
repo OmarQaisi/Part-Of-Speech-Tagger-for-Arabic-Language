@@ -2,7 +2,7 @@ from tokenizer import Tokenizer
 from tagger import Tagger
 
 
-test = "Corpus\\Sports\\الرياضة و شهر رمضان المبارك.txt"
+test = "Corpus\\Arts\\كتاب فيزياء الحزن.txt"
 
 token = Tokenizer(test)
 result = token.tokenize()

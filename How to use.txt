@@ -1,0 +1,6 @@
+Requirments:
+1- python3
+2- packages: pandas, matplotlib, xlrd
+
+* click on the POSTagger.bat file which will run "python gui.py" in the cmd
+so you have to make sure you have python downloaded ^_^
