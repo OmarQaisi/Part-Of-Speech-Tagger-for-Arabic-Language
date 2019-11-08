@@ -24,6 +24,7 @@ fileName = '' #global variable for the selected file
 tags = []     #global variable for the generated tags 
 flag = False  #global variable for the accuracy button (user handling)
 y = []        #global variable for the y-axis values (matplotlib)
+result = []   #global variable for the result of the tokenizer 
 
 times = font.Font(family='times', size=12, weight='normal') #the font used for all the buttons
 
@@ -47,6 +48,10 @@ doc = tkscrolled.ScrolledText(frame2, width=60, height=15, wrap='word')
 doc.pack(fill=X, padx=(20,20), pady=(4,0))
 
 def browseFiles():
+    global result
+    global y
+    result = []
+    y = []
     doc.configure(state='normal')
     doc.delete('1.0', END)
     global fileName 
@@ -72,6 +77,7 @@ def tokenizeTheFile():
         tokenizer_textbox.configure(state='normal')
         tokenizer_textbox.delete('1.0', END)
         token = Tokenizer(fileName)
+        global result
         result = token.tokenize()
         tokenizer_textbox.tag_configure('tag-right', justify='right')
         for word in result:
@@ -90,14 +96,14 @@ tagger_textbox.pack(fill=Y, side=RIGHT, padx=(0,20), pady=(5,10))
 def tagWords():
     if not fileName:
         messagebox.showerror("Error", "Choose a file first")
+    elif len(result) == 0:
+        messagebox.showerror("Error", "Click on the (Tokenizer) button first")
     else:
         global flag
         global tags
         flag = True
         tagger_textbox.configure(state='normal')
         tagger_textbox.delete('1.0', END)
-        token = Tokenizer(fileName)
-        result = token.tokenize()
         tagger = Tagger()
         tags = tagger.tag(result)
         tagger_textbox.tag_configure('tag-right', justify='right')
@@ -123,7 +129,9 @@ combo.pack(side=TOP, padx=(0,10), pady=(0,0))
 accuracy_textbox = Text(frame4, width=16, height=1)
 
 def calcAccuracy():
-    if combo.get() == "Choose your Golden Corpus" or flag == False:
+    if not fileName:
+        messagebox.showerror("Error", "Choose a file first")
+    elif combo.get() == "Choose your Golden Corpus" or flag == False:
         messagebox.showerror("Error", "Make sure to click the (Tag Button) first\nand choose a (Golden Corpus)")
     elif combo.get() not in fileName:
          messagebox.showerror("Error", "Make sure your (Golden Corpus) and the selected file are the same")
@@ -160,13 +168,18 @@ accuracy_textbox.pack(side=TOP, padx=(0,15), pady=(5,0))
 
 
 def visualizeAccuracy():
-    x = ["N","V","P"]
-    plt.xlabel('Part of Speech  (N,V,P)')
-    plt.ylabel('Accuracy  (%)')
-    plt.title('Accuracy Visualization')
-    plt.bar(x, height=y)
-    plt.xticks(x, ['Noun','Verb','Particle'])
-    plt.show()
+    if not fileName:
+        messagebox.showerror("Error", "Choose a file first")
+    elif len(y) == 0:
+         messagebox.showerror("Error", "Click on the (Calculate Accuracy) button first")
+    else:
+        x = ["N","V","P"]
+        plt.xlabel('Part of Speech  (N,V,P)')
+        plt.ylabel('Accuracy  (%)')
+        plt.title('Accuracy Visualization')
+        plt.bar(x, height=y)
+        plt.xticks(x, ['Noun','Verb','Particle'])
+        plt.show()
     
     
     
