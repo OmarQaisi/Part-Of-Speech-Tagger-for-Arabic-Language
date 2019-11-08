@@ -6,8 +6,7 @@ class Tagger:
     def tag(self, file):
         result = []
         conjunctions_noun = ["ليت", "و", "لعل", "كأن", "إِنَّ", "تحت", "وراء", "حيث", "دون", "حين", "صباح", "ظهر",
-                             "أمام", "إما", "إلا", "أو","بعد",
-                             "فوق", "كل", "لي", "لها", "لنا", "لهم", "لك", "له",
+                             "أمام", "إما", "إلا", "أو", "بعد", "ب", "فوق", "كل", "لي", "لها", "لنا", "لهم", "لك", "له",
                              "أياي", "ايانا", "اياك", "اياكما", "اياكم", "اياكن", "اياه", "اياها", "اياهم",
                              "اياهن", "اياهما", "هن", "هما", "أي", "يا", "أيتها", "أيها", "هيا",
                              "أيا", "على", "إلى", "عن", "من", "في"]
@@ -19,8 +18,10 @@ class Tagger:
 
         # to do: add suffixes
 
-        verbpatterns = ["ا..وع.", "ا.ت..", "است..."]
-        nounpatterns = ["م...", "م..ا.", "..ا.ة", "م...ة", "...ى", "..ي."]
+        verbpatterns = ["ا..و..", "ا.ت..", "يت...", "يت.ا..", "است...", "ا..ا.", "يست...", "تم...", "ت.و..", "ي...ون",
+                        "ت...ان", "ي...ان", "ت...ون", "يت...ون", "يت.ا..ون", "يست...ون", "يت...ان", "يت.ا..ان"
+                        , "يست...ان", "تت...ون", "تت.ا..ون", "تست...ون"]
+        nounpatterns = ["م...", "م..ا.", "..ا.ة", "م...ة", "...ى", "..ي.", "...ة$"]
 
         i = -1
         while i < len(file) - 1:
@@ -39,6 +40,11 @@ class Tagger:
             elif file[i] in kan:
                 result.append("V")
                 result.append("N")
+                i += 1
+                continue
+            elif file[i] == "و":
+                result.append("P")
+                result.append(result[i - 1])
                 i += 1
                 continue
             else:
@@ -61,19 +67,21 @@ class Tagger:
 
                 if flag:
                     for pattern in verbpatterns:
-                        if re.match(pattern, file[i]):
-                            result.append("V")
-                            result.append("N")
-                            i += 1
-                            flag = False
-                            break
+                        if len(pattern) == len(file[i]):
+                            if re.match(pattern, file[i]) and len(pattern) == len(file[i]):
+                                result.append("V")
+                                result.append("N")
+                                i += 1
+                                flag = False
+                                break
 
                 if flag:
                     for pattern in nounpatterns:
-                        if re.match(pattern, file[i]):
-                            result.append("N")
-                            flag = False
-                            break
+                        if len(pattern) == len(file[i]):
+                            if re.match(pattern, file[i]) and len(pattern) == len(file[i]):
+                                result.append("N")
+                                flag = False
+                                break
                 if flag:
                     result.append("N")
 
