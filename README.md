@@ -15,17 +15,14 @@ What things you need to install the software and how to install them
 python, pip, pandas, matplotlib, xlrd
 ```
 
-### Installing
-
-
-__Python:__
+### Installing Python :
 
 https://www.python.org/downloads/
 
 
-__pip:__
+### Installing Pip :
 
-_If you're running Python 2.7.9+ or Python 3.4+_
+__If you're running Python 2.7.9+ or Python 3.4+__  
 Congrats, you should already have pip installed. If you do not, read onward.
 
 1. Download get-pip.py(https://bootstrap.pypa.io/get-pip.py) to a folder on your computer.
@@ -37,7 +34,7 @@ python get-pip.py
 4. Pip is now installed!
 
 
-__pandas, matplotlib and xlrd:__
+### Installing Pandas, matplotlib and xlrd :
 
 ```
 pip install pandas matplotlib xlrd
@@ -45,10 +42,12 @@ pip install pandas matplotlib xlrd
 
 ## Running the program
 
-Now you can double-click the .bat file and this window should pop up:
+Now you can double-click the .bat file and this window should pop up:  
+  
 ![Initial State of the Program](/ScreenShots/InitialsState.PNG?raw=true "Initial State")
 
-After testing one of the files:
+After testing one of the files:  
+  
 ![Running State of the Program](/ScreenShots/RunningState.PNG?raw=true "Running State")
 
 ## Built With
